@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
     repositories {
         mavenCentral()
     }
@@ -13,27 +16,29 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'springTemplate'
     version =  '0.1.0'
 }
 
 repositories {
     mavenCentral()
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 }
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("com.google.guava:guava:17.0")
+    compile("com.google.collections:google-collections:1.0")
+    compile("com.h2database:h2")
+    compile("com.squareup.retrofit:retrofit:1.6.0")
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("junit:junit")
 }
 
